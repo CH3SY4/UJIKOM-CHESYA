@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 include '../config/koneksi.php';
 
@@ -9,7 +10,7 @@ if ($_SESSION['status'] != 'login') {
     </script>";
 }
 
-if(isset($_POST['tambah'])) {
+if (isset($_POST['tambah'])) {
     $judulfoto = $_POST['judulfoto'];
     $deskripsifoto = $_POST['deskripsifoto'];
     $AlbumID = $_POST['AlbumID'];
@@ -18,10 +19,10 @@ if(isset($_POST['tambah'])) {
     $nama_file = $_FILES['lokasifile']['name'];
     $direktori = "../assets/img/$nama_file";
 
-    if(move_uploaded_file($lokasi_file, $direktori)) {
+    if (move_uploaded_file($lokasi_file, $direktori)) {
         $query = "INSERT INTO foto (judulfoto, deskripsifoto, AlbumID, lokasifile, tanggalunggah, userid) VALUES ('$judulfoto', '$deskripsifoto', '$AlbumID', '$nama_file', NOW(), '{$_SESSION['UserID']}')"; // Perbaikan: gunakan UserID
-        
-        if(mysqli_query($koneksi, $query)) {
+
+        if (mysqli_query($koneksi, $query)) {
             echo "<script>
             alert('Data foto berhasil ditambahkan');
             window.location.href='../admin/foto.php';
@@ -37,7 +38,7 @@ if(isset($_POST['tambah'])) {
         alert('Gagal mengunggah file foto');
         window.location.href='../admin/foto.php';
         </script>";
-    }  
+    }
 }
 
 if (isset($_POST['edit'])) {
@@ -94,4 +95,3 @@ if (isset($_POST['hapus'])) {
     window.location.href='../admin/foto.php';
     </script>";
 }
-?>

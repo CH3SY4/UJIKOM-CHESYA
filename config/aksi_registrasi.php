@@ -1,39 +1,29 @@
 <?php
 
+session_start();
 include 'koneksi.php';
 
-$username = $_POST['username'];
-$password = md5($_POST['password']);
-$email = $_POST['email'];
-$namalengkap = $_POST['namalengkap'];
-$alamat = $_POST['alamat'];
+if (isset($_POST['kirim'])) {
+    $username = $_POST['username'];
+    $password = md5($_POST['password']); // Disarankan untuk menggunakan metode hash yang lebih aman, seperti bcrypt atau Argon2
+    $email = $_POST['email'];
+    $namalengkap = $_POST['namalengkap'];
+    $alamat = $_POST['alamat'];
+    $role = $_POST['role']; // Tangkap nilai peran (role) yang dipilih oleh pengguna
 
-// Query untuk memeriksa apakah username atau email sudah ada dalam database
-$check_query = "SELECT * FROM user WHERE username = '$username' OR email = '$email'";
-$check_result = mysqli_query($koneksi, $check_query);
+    $query = "INSERT INTO user (username, password, email, namalengkap, alamat, role) VALUES ('$username', '$password', '$email', '$namalengkap', '$alamat', '$role')";
 
-// Jika hasil query mengembalikan baris lebih dari 0, artinya username atau email sudah ada
-if (mysqli_num_rows($check_result) > 0) {
-    echo "<script>
-    alert('Username atau email sudah digunakan. Silahkan buat username dan email yang berbeda!');
-    location.href='../registrasi.php'; // Redirect kembali ke halaman registrasi
-    </script>";
-    exit; // Berhenti eksekusi skrip
+    if (mysqli_query($koneksi, $query)) {
+        // Jika pendaftaran berhasil, arahkan pengguna ke halaman login
+        echo "<script>
+        alert('Pendaftaran berhasil');
+        location.href='../login.php';
+        </script>";
+    } else {
+        // Jika terjadi kesalahan saat pendaftaran, tampilkan pesan kesalahan
+        echo "<script>
+        alert('Terjadi kesalahan saat melakukan pendaftaran');
+        location.href='../registrasi.php';
+        </script>";
+    }
 }
-
-// Jika username dan email belum digunakan, lanjutkan proses pendaftaran
-$sql = "INSERT INTO user (Username, Password, Email, NamaLengkap, Alamat) VALUES ('$username', '$password', '$email', '$namalengkap', '$alamat')";
-
-if (mysqli_query($koneksi, $sql)) {
-    echo "<script>
-    alert('Pendaftaran akun berhasil');
-    location.href='../login.php';
-    </script>";
-} else {
-    echo "<script>
-    alert('Terjadi kesalahan saat memasukkan data. Silahkan coba lagi.');
-    location.href='../registrasi.php';
-    </script>";
-}
-
-?>

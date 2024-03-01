@@ -43,6 +43,11 @@
             <input type="text" name="namalengkap" class="form-control" required>
             <label class="form-label">Alamat</label>
             <input type="text" name="alamat" class="form-control" required>
+            <label class="form-label">Daftar Sebagai</label>
+<select class="form-select" name="role" required>
+    <option value="user" selected>User</option>
+    <option value="admin">Admin</option>
+</select>
             <div class="d-grid mt-2">
               <button class="btn btn-primary" type="submit" name="kirim">DAFTAR</button>
             </div>

@@ -2,11 +2,31 @@
 session_start();
 include '../config/koneksi.php';
 $userid = $_SESSION['UserID'];
+
 if ($_SESSION['status'] != 'login') {
     echo "<script>
     alert('Anda belum login');
     location.href='../index.php';
     </script>";
+}
+
+if (isset($_GET['hapus'])) {
+    $id = $_GET['hapus'];
+    // Query untuk menghapus user berdasarkan UserID
+    $query_delete = "DELETE FROM user WHERE UserID = $id";
+    $result_delete = mysqli_query($koneksi, $query_delete);
+
+    if ($result_delete) {
+        echo "<script>
+        alert('User berhasil dihapus');
+        location.href='data_user.php';
+        </script>";
+    } else {
+        echo "<script>
+        alert('Gagal menghapus user');
+        location.href='data_user.php';
+        </script>";
+    }
 }
 ?>
 
@@ -52,6 +72,7 @@ if ($_SESSION['status'] != 'login') {
                         <th>Password</th>
                         <th>Nama Lengkap</th>
                         <th>Alamat</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -67,6 +88,10 @@ while ($data = mysqli_fetch_array($query)) {
                             <td><?php echo $data['Password']; ?></td>
                             <td><?php echo $data['NamaLengkap']; ?></td>
                             <td><?php echo $data['Alamat']; ?></td>
+                            <td>
+                                <!-- Tambahkan link hapus dengan mengirimkan UserID sebagai parameter -->
+                                <a href="?hapus=<?php echo $data['UserID']; ?>" class="btn btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus user ini?')">Hapus</a>
+                            </td>
                         </tr>
                         <?php
 }
@@ -81,6 +106,6 @@ while ($data = mysqli_fetch_array($query)) {
     <p>&copy; Website Galeri Foto </p>
 </footer>
 
-<script type="text/javascript" scr="../assets/js/bootstrap.min"></script>
+<script type="text/javascript" src="../assets/js/bootstrap.min.js"></script>
 </body>
 </html>

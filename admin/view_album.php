@@ -10,6 +10,18 @@ if ($_SESSION['status'] != 'login') {
     location.href='../index.php';
     </script>";
 }
+
+// Mendapatkan ID album dari URL
+if (isset($_GET['albumid'])) {
+    $albumid = $_GET['albumid'];
+
+    // Ambil detail album dari database
+    $query_album = mysqli_query($koneksi, "SELECT * FROM album WHERE AlbumID = '$albumid'");
+    $album_data = mysqli_fetch_assoc($query_album);
+
+    // Ambil daftar foto dari album
+    $query_foto = mysqli_query($koneksi, "SELECT * FROM foto WHERE AlbumID = '$albumid'");
+}
 ?>
 
 <!DOCTYPE html>
@@ -17,24 +29,13 @@ if ($_SESSION['status'] != 'login') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Website Galeri Foto</title>
+    <title>View Album</title>
     <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
     <style>
-        /* CSS untuk album Facebook-like */
-        .navbar-brand {
-            font-size: 1.5rem;
-        }
-        .navbar-toggler {
-            border: none;
-        }
-        .navbar-nav .btn {
-            font-size: 0.9rem;
-        }
         .container {
             max-width: 90%; /* Menyesuaikan lebar konten */
         }
-        .album {
+        .foto {
             border: none;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -43,26 +44,23 @@ if ($_SESSION['status'] != 'login') {
             transition: transform 0.3s ease;
             margin-bottom: 20px;
         }
-        .album:hover {
+        .foto:hover {
             transform: translateY(-10px);
         }
-        .album img {
+        .foto img {
             border-top-left-radius: 10px;
             border-top-right-radius: 10px;
             height: 200px; /* Menetapkan tinggi gambar */
             object-fit: cover; /* Memastikan gambar sesuai dengan container */
         }
-        .album-body {
+        .foto-body {
             padding: 15px;
         }
-        .album-title {
+        .foto-title {
             font-weight: bold;
         }
-        .album-text {
+        .foto-text {
             color: #666;
-        }
-        footer {
-            font-size: 0.8rem;
         }
     </style>
 </head>
@@ -87,21 +85,20 @@ if ($_SESSION['status'] != 'login') {
 </nav>
 
 <div class="container mt-2">
+    <h2><?php echo $album_data['NamaAlbum']; ?></h2>
+    <p><?php echo $album_data['Deskripsi']; ?></p>
+    <p>Tanggal Dibuat: <?php echo $album_data['TanggalDibuat']; ?></p>
     <div class="row">
         <?php
-        // Menampilkan semua album dari semua pengguna
-        $query = mysqli_query($koneksi, 'SELECT * FROM album');
-        while ($data = mysqli_fetch_array($query)) {
+        // Menampilkan daftar foto dalam album
+        while ($foto = mysqli_fetch_array($query_foto)) {
             ?>
             <div class="col-md-4">
-                <div class="album">
-                    <img src="./assets/img/album-placeholder.jpg" class="card-img-top" alt="Album Image">
-                    <div class="album-body">
-                        <h5 class="album-title"><?php echo $data['NamaAlbum']; ?></h5>
-                        <p class="album-text"><?php echo $data['Deskripsi']; ?></p>
-                        <p class="album-text">Tanggal Dibuat: <?php echo $data['TanggalDibuat']; ?></p>
-                        <!-- Tambahkan tautan "Lihat Album" untuk melihat album -->
-                        <a href="view_album.php?albumid=<?php echo $data['AlbumID']; ?>" class="btn btn-primary">Lihat Album</a>
+                <div class="foto">
+                    <img src="../assets/img/<?php echo $foto['lokasifile']; ?>" class="card-img-top" alt="Foto">
+                    <div class="foto-body">
+                        <h5 class="foto-title"><?php echo $foto['judulfoto']; ?></h5>
+                        <p class="foto-text"><?php echo $foto['deskripsifoto']; ?></p>
                     </div>
                 </div>
             </div>

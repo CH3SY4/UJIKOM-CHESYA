@@ -3,35 +3,47 @@
 session_start();
 include 'koneksi.php';
 
-$username = $_POST['username'];
-$password = md5($_POST['password']);
+// Validasi input
+if (isset($_POST['username']) && isset($_POST['password'])) {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
 
-$sql = mysqli_query($koneksi, "SELECT * FROM user WHERE username='$username' AND password='$password'");
+    // Gunakan fungsi hash yang lebih aman, misalnya password_hash()
+    $password_hashed = md5($password); // Untuk saat ini, gunakan md5(), tetapi disarankan untuk menggunakan fungsi hash yang lebih aman
 
-$cek = mysqli_num_rows($sql);
+    // Query untuk mendapatkan data pengguna
+    $sql = mysqli_query($koneksi, "SELECT * FROM user WHERE username='$username' AND password='$password_hashed'");
 
-if ($cek > 0) {
-    $data = mysqli_fetch_array($sql);
+    // Periksa apakah ada baris hasil dari query
+    if (mysqli_num_rows($sql) > 0) {
+        $data = mysqli_fetch_array($sql);
 
-    $_SESSION['Username'] = $data['Username'];
-    $_SESSION['UserID'] = $data['UserID'];
-    $_SESSION['role'] = $data['role'];
-    $_SESSION['status'] = 'login';
+        $_SESSION['Username'] = $data['Username'];
+        $_SESSION['UserID'] = $data['UserID'];
+        $_SESSION['role'] = $data['role'];
+        $_SESSION['status'] = 'login';
 
-    if ($data['role'] == 'admin') {
+        // Langsung arahkan ke halaman sesuai peran
+        if ($data['role'] == 'admin') {
+            header('Location: ../admin/index.php');
+            exit;
+        } elseif ($data['role'] == 'user') {
+            header('Location: ../user/index.php');
+            exit;
+        }
+    } else {
+        // Jika tidak ada baris hasil dari query, berarti username atau password salah
         echo "<script>
-        alert('Login berhasil sebagai admin');
-        location.href='../admin/index.php';
+        alert('Username atau password salah');
+        location.href='../login.php';
         </script>";
-    } elseif ($data['role'] == 'user') {
-        echo "<script>
-        alert('Login berhasil sebagai user');
-        location.href='../user/index.php';
-        </script>";
+        exit;
     }
 } else {
+    // Jika tidak semua input terpenuhi
     echo "<script>
-    alert('username atau password salah');
+    alert('Isi semua kolom');
     location.href='../login.php';
     </script>";
+    exit;
 }
