@@ -32,7 +32,7 @@ Ini adalah proyek ujikom (ujian kompetensi) yang bertujuan untuk membuat sebuah 
 
 3.Import file database.sql ke dalam database MySQL Anda.
 
-4 Konfigurasikan koneksi database di dalam berkas includes/db_connect.php.
+4.Konfigurasikan koneksi database di dalam berkas includes/db_connect.php.
 
 5.Buka website dalam browser Anda.
 
