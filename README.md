@@ -25,16 +25,25 @@ Ini adalah proyek ujikom (ujian kompetensi) yang bertujuan untuk membuat sebuah 
 6.Styling: CSS
 
 •Cara Penggunaan
+
 1.Pastikan Anda memiliki server web yang mendukung PHP dan MySQL.
+
 2.Unduh atau klon repositori ini ke dalam direktori root server web Anda.
+
 3.Import file database.sql ke dalam database MySQL Anda.
+
 4 Konfigurasikan koneksi database di dalam berkas includes/db_connect.php.
+
 5.Buka website dalam browser Anda.
+
 6.Kontribusi dan perbaikan bug sangat dihargai. Jika Anda ingin berkontribusi, silakan kirim pull request.
 
 •Lisensi
+
 Proyek ini dilisensikan di bawah lisensi MIT. Lihat berkas LICENSE untuk informasi lebih lanjut.
 
 •Kontak
+
 Jika Anda memiliki pertanyaan atau masalah, jangan ragu untuk menghubungi kami melalui email atau buat isu baru di repositori ini.
+
 Terima kasih telah menggunakan Ujikom Website Gallery Foto! 📸
