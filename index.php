@@ -1,7 +1,25 @@
 <?php
 include 'config/koneksi.php'; // Sesuaikan dengan lokasi file koneksi.php Anda
 
-// Sisanya tetap sama
+// Tentukan jumlah foto per halaman
+$jumlah_per_halaman = 6;
+
+// Tentukan halaman saat ini
+$halaman = isset($_GET['halaman']) ? $_GET['halaman'] : 1;
+
+// Hitung offset berdasarkan halaman saat ini
+$offset = ($halaman - 1) * $jumlah_per_halaman;
+
+// Query untuk mengambil data foto dengan batasan jumlah per halaman dan offset
+$query = "SELECT * FROM foto INNER JOIN user ON foto.userid=user.userid INNER JOIN album ON foto.albumid=album.albumid LIMIT $offset, $jumlah_per_halaman";
+$result = mysqli_query($koneksi, $query);
+
+// Hitung jumlah total foto
+$total_foto = mysqli_num_rows(mysqli_query($koneksi, "SELECT * FROM foto"));
+
+// Hitung jumlah halaman yang dibutuhkan
+$jumlah_halaman = ceil($total_foto / $jumlah_per_halaman);
+
 ?>
 
 <!DOCTYPE html>

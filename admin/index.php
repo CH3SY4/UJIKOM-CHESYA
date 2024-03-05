@@ -163,13 +163,31 @@ while ($data = mysqli_fetch_array($query)) {
                                             </p>
                                             <hr>
                                             <?php
-                        $FotoID = $data['fotoid'];
+                                                                        $FotoID = $data['fotoid'];
     $komentar = mysqli_query($koneksi, "SELECT * FROM komentarfoto INNER JOIN user ON komentarfoto.userid=user.userid WHERE komentarfoto.fotoid='$FotoID'");
     while ($row = mysqli_fetch_array($komentar)) {
-        ?>
-                                                <p align="left">
-                                                    <strong><?php echo $row['NamaLengkap']; ?></strong> <?php echo $row['IsiKomentar']; ?>
-                                                </p>
+        ?>                                      
+                                            <div style='display:flex;flex-direction:row;justify-content:space-between'>
+                                                <div style='display:flex;flex-direction:row'>
+                                                    <p align="left" style='margin-right:8px'>
+                                                        <strong style=''><?php echo $row['NamaLengkap']; ?></strong> 
+                                                    </p>
+                                                    <p><?php echo $row['IsiKomentar']; ?></p>
+                                                </div>
+                                                <div>
+                                                    <i id='option' onClick="toggleDropdown(<?= $data['fotoid']?>)" class="fa-solid fa-ellipsis-vertical" style='cursor:pointer'></i>
+                                                    <div id='komenid<?= $data['fotoid'] ?>' style='display:none;position:absolute;background-color:white;width:120px;padding:12px'>
+                                                        <form method='post' action='../config/proses_komentar.php'>
+                                                            <input type='hidden' name='komenid' value='<?= $row['KomentarID'] ?>'/>
+                                                            <button type='submit' name='hapuskomentar' style='border:none;background-color:white'>
+                                                                <p style='color:red;cursor:pointer'>Hapus</p>
+
+                                                            </button>
+                                                        <form>
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
                                             <?php } ?>
 
                                             <hr>
@@ -223,5 +241,20 @@ while ($data = mysqli_fetch_array($query)) {
 </footer>
 
 <script type="text/javascript" src="../assets/js/bootstrap.min.js"></script>
+<script>
+    // Fungsi untuk menampilkan atau menyembunyikan dropdown
+    function toggleDropdown(id) {
+        var dropdown = document.getElementById('komenid' + id);
+        dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+    }
+
+    // Fungsi untuk menghapus komentar
+    function hapusKomentar(komenid) {
+        // Tambahkan logika untuk menghapus komentar di sini
+        console.log("Komentar dengan ID " + komenid + " telah dihapus.");
+    }
+
+   
+</script>
 </body>
 </html>

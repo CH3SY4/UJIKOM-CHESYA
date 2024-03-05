@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 20, 2024 at 05:39 AM
+-- Generation Time: Mar 05, 2024 at 04:16 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.3
 
@@ -41,11 +41,10 @@ CREATE TABLE `album` (
 --
 
 INSERT INTO `album` (`AlbumID`, `NamaAlbum`, `Deskripsi`, `TanggalDibuat`, `UserId`) VALUES
-(19, 'otomotif', 'otomotif motor', '2024-02-20', 4),
-(25, 'sekolah', 'sekolah terfavorite di Jawa Barat', '2024-02-16', 8),
-(27, 'mm', 'mmm', '2024-02-20', 4),
-(28, 'kenangan smk', 'kerandoman anak anak', '2024-02-19', 4),
-(29, 'manusia', 'manusia', '2024-02-20', 11);
+(43, 'Gunung', 'Pemandangan Gunung Aesthetic', '2024-03-05', 23),
+(44, 'Pohon', 'Pemandangan Pohon Hijau', '2024-03-05', 24),
+(45, 'Pantai', 'Pemandangan Pantai', '2024-03-05', 25),
+(46, 'Sungai', 'Pemandangan Sungai', '2024-03-05', 26);
 
 -- --------------------------------------------------------
 
@@ -68,11 +67,12 @@ CREATE TABLE `foto` (
 --
 
 INSERT INTO `foto` (`fotoid`, `judulfoto`, `deskripsifoto`, `tanggalunggah`, `lokasifile`, `albumid`, `userid`) VALUES
-(13, 'komputer', '  komputer canggih', '2024-02-19', '2008755560-komputer.jpg', 19, 4),
-(60, 'sekolah', 'sekolah', '2024-02-19', 'ccc.jpg', 25, 4),
-(63, 'SMKN 1 BANJAR', 'salah satu sekolah terfovorite', '2024-02-20', '1168265286-coba.JPG', 19, 8),
-(65, 'zuxxy', 'btr', '2024-02-20', '1824906334-ya.jpg', 19, 4),
-(66, 'chesya', 'anak gila', '2024-02-20', 'uu.jpg', 29, 11);
+(97, 'Gunung', 'pemandangan gunung dengan awan indah', '2024-03-05', 'aesthetic1.jpg', 43, 23),
+(98, 'Gunung', 'Pemandangan gunung dengan kabut yang tebal', '2024-03-05', 'aesthetic7.jpg', 43, 23),
+(99, 'Pohon', 'Pohon yang berwarna hijau yang asri sekali', '2024-03-05', 'aesthetic4.jpg', 44, 24),
+(100, 'Pohon', 'pemandangan pohon hijau dengan sawah berwarna kuning', '2024-03-05', 'aesthetic8.jpg', 44, 24),
+(103, 'Pantai', 'Pantai biru dengan pair berwarna pink dan awan sunset', '2024-03-05', '268855923-aesthetic5.jpg', 45, 25),
+(104, 'Pantai', 'Pemandangan pantai saat malam hari', '2024-03-05', 'aesthetic9.jpg', 45, 25);
 
 -- --------------------------------------------------------
 
@@ -93,14 +93,8 @@ CREATE TABLE `komentarfoto` (
 --
 
 INSERT INTO `komentarfoto` (`KomentarID`, `FotoID`, `UserID`, `IsiKomentar`, `TanggalKomentar`) VALUES
-(1, 13, 4, ',,,,', '0000-00-00'),
-(2, 60, 4, 'sekolah yang asri dan indah', '0000-00-00'),
-(3, 13, 4, 'canggih sekali', '0000-00-00'),
-(4, 63, 8, 'wow asri sekali sekolahnya', '0000-00-00'),
-(5, 13, 11, 'mejanya bagus', '0000-00-00'),
-(6, 60, 11, 'sekolah daerah mana ini?', '0000-00-00'),
-(7, 63, 11, 'dulu bukan nya namanya bukan ini ya', '0000-00-00'),
-(8, 65, 8, 'siapa ituu', '0000-00-00');
+(21, 98, 26, 'indah sekali', '2024-03-05'),
+(22, 103, 26, 'biru sekali air lautnya', '2024-03-05');
 
 -- --------------------------------------------------------
 
@@ -120,14 +114,12 @@ CREATE TABLE `likefoto` (
 --
 
 INSERT INTO `likefoto` (`LikeID`, `FotoID`, `UserID`, `TanggalLike`) VALUES
-(72, 13, 4, '2024-02-19'),
-(73, 13, 8, '2024-02-19'),
-(76, 60, 4, '2024-02-19'),
-(77, 63, 8, '2024-02-20'),
-(78, 63, 4, '2024-02-20'),
-(80, 60, 8, '2024-02-20'),
-(81, 65, 8, '2024-02-20'),
-(82, 65, 4, '2024-02-20');
+(103, 97, 26, '2024-03-05'),
+(104, 98, 26, '2024-03-05'),
+(105, 99, 26, '2024-03-05'),
+(106, 100, 26, '2024-03-05'),
+(107, 103, 26, '2024-03-05'),
+(108, 104, 26, '2024-03-05');
 
 -- --------------------------------------------------------
 
@@ -141,17 +133,21 @@ CREATE TABLE `user` (
   `Password` varchar(255) NOT NULL,
   `Email` varchar(255) NOT NULL,
   `NamaLengkap` varchar(255) NOT NULL,
-  `Alamat` text NOT NULL
+  `Alamat` text NOT NULL,
+  `role` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`UserID`, `Username`, `Password`, `Email`, `NamaLengkap`, `Alamat`) VALUES
-(4, 'admin', '81dc9bdb52d04dc20036dbd8313ed055', 'admin@gmail.com', 'admin', 'indonesia'),
-(8, 'user', '24b59ae3f1c997f69705fc55edee7679', 'user@gmail.com', 'user', 'indonesia'),
-(11, 'caca', 'd93591bdf7860e1e4ee2fca799911215', 'chesyasalsabil102@gmail.com', 'chesya salsabila', 'banjar');
+INSERT INTO `user` (`UserID`, `Username`, `Password`, `Email`, `NamaLengkap`, `Alamat`, `role`) VALUES
+(4, 'admin', '81dc9bdb52d04dc20036dbd8313ed055', 'admin@gmail.com', 'admin', 'indonesia', 'admin'),
+(23, 'fyh', 'b59c67bf196a4758191e42f76670ceba', 'fyh1@gmail.com', 'alffiyah', 'indonesia', 'user'),
+(24, 'nanda', '934b535800b1cba8f96a5d72f72f1611', 'nanda2@gmail.com', 'ananda', 'indonesia', 'user'),
+(25, 'april', '2be9bd7a3434f7038ca27d1918de58bd', 'april3@gmail.com', 'aprilianti', 'indonesia', 'user'),
+(26, 'gina', 'dbc4d84bfcfe2284ba11beffb853a8c4', 'gina4@gmail.com', 'ginaaulia', 'indonesia', 'user'),
+(27, 'dila', '6074c6aa3488f3c2dddff2a7ca821aab', 'dila5@gmail.com', 'dila nur', 'indonesia', 'user');
 
 --
 -- Indexes for dumped tables
@@ -201,31 +197,31 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `album`
 --
 ALTER TABLE `album`
-  MODIFY `AlbumID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `AlbumID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT for table `foto`
 --
 ALTER TABLE `foto`
-  MODIFY `fotoid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
+  MODIFY `fotoid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=107;
 
 --
 -- AUTO_INCREMENT for table `komentarfoto`
 --
 ALTER TABLE `komentarfoto`
-  MODIFY `KomentarID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `KomentarID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `likefoto`
 --
 ALTER TABLE `likefoto`
-  MODIFY `LikeID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
+  MODIFY `LikeID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=109;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- Constraints for dumped tables

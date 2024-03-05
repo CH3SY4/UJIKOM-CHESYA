@@ -31,7 +31,7 @@ if ($_SESSION['status'] != 'login') {
                 <a href="album.php" class="nav-link">Album</a>
                 <a href="foto.php" class="nav-link">Foto</a>
             </div>
-            <a href="../config/aksi_logout.php" class="btn btn-outline-danger m-1">Keluar</a>
+            <a href="../config/aksi_logout.php" class="btn btn-outline-danger m-1" onclick="return confirm('Apakah Anda yakin ingin keluar?')">Keluar</a>
         </div>
     </div>
 </nav>
@@ -105,7 +105,7 @@ while ($data = mysqli_fetch_array($sql)) {
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <form action="../config/aksi_foto_user.php" method="POST" enctype="multipart/form-data">
+                                                        <form action="../config/aksi_foto.php" method="POST" enctype="multipart/form-data">
                                                             <input type="hidden" name="fotoid" value="<?php echo $data['fotoid']; ?>">
                                                             <label class="form-label">Judul Foto</label>
                                                             <input type="text" name="judulfoto" value="<?php echo $data['judulfoto']; ?>" class="form-control" required>
@@ -153,7 +153,7 @@ while ($data = mysqli_fetch_array($sql)) {
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <form action="../config/aksi_foto_user.php" method="POST">
+                                                        <form action="../config/aksi_foto.php" method="POST">
                                                             <input type="hidden" name="fotoid" value="<?php echo $data['fotoid']; ?>">
                                                             Apakah anda yakin akan menghapus data foto ini?
                                                     </div>

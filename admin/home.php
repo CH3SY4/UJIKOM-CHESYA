@@ -81,7 +81,7 @@ if ($_SESSION['status'] != 'login') {
                 <a href="foto.php" class="nav-link">Foto</a>
                 <a href="data_user.php" class="nav-link">Data User</a>
             </div>
-            <a href="../config/aksi_logout.php" class="btn btn-outline-danger m-1">Keluar</a>
+            <a href="../config/aksi_logout.php" class="btn btn-outline-danger m-1" onclick="return confirm('Apakah Anda yakin ingin keluar?')">Keluar</a>
         </div>
     </div>
 </nav>
@@ -90,16 +90,24 @@ if ($_SESSION['status'] != 'login') {
     <div class="row">
         <?php
         // Menampilkan semua album dari semua pengguna
-        $query = mysqli_query($koneksi, 'SELECT * FROM album');
+        $query = mysqli_query($koneksi, 'SELECT a.*, f.*
+        FROM album a
+        INNER JOIN (
+            SELECT MIN(fotoid) AS first_photo_id, albumid
+            FROM foto
+            GROUP BY albumid
+        ) AS first_photos ON a.AlbumID = first_photos.albumid
+        INNER JOIN foto f ON first_photos.first_photo_id = f.fotoid');
         while ($data = mysqli_fetch_array($query)) {
             ?>
             <div class="col-md-4">
                 <div class="album">
-                    <img src="./assets/img/album-placeholder.jpg" class="card-img-top" alt="Album Image">
+                    <img src="../assets/img/<?=$data['lokasifile'];?>" class="card-img-top" alt="Album Image">
                     <div class="album-body">
                         <h5 class="album-title"><?php echo $data['NamaAlbum']; ?></h5>
                         <p class="album-text"><?php echo $data['Deskripsi']; ?></p>
                         <p class="album-text">Tanggal Dibuat: <?php echo $data['TanggalDibuat']; ?></p>
+                        <p class="album-text">Dibuat Oleh: <?php echo $data['userid']; ?></p>
                         <!-- Tambahkan tautan "Lihat Album" untuk melihat album -->
                         <a href="view_album.php?albumid=<?php echo $data['AlbumID']; ?>" class="btn btn-primary">Lihat Album</a>
                     </div>

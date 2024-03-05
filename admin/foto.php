@@ -32,7 +32,7 @@ if ($_SESSION['status'] != 'login') {
                 <a href="foto.php" class="nav-link">Foto</a>
                 <a href="data_user.php" class="nav-link">Data User</a>
             </div>
-            <a href="../config/aksi_logout.php" class="btn btn-outline-danger m-1">Keluar</a>
+            <a href="../config/aksi_logout.php" class="btn btn-outline-danger m-1" onclick="return confirm('Apakah Anda yakin ingin keluar?')">Keluar</a>
         </div>
     </div>
 </nav>

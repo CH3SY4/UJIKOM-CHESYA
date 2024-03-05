@@ -23,3 +23,21 @@ if (isset($_POST['kirimkomentar'])) {
         </script>";
     }
 }
+
+if(isset($_POST['hapuskomentar'])){
+    $komenid = $_POST['komenid'];
+
+    $query = mysqli_query($koneksi,"DELETE FROM komentarfoto WHERE KomentarID = '$komenid'");
+    echo $komenid;
+    if ($query) {
+        echo "<script>
+        alert('Komentar berhasil dihapus');
+        location.href='../admin/index.php';
+        </script>";
+    } else {
+        echo "<script>
+        alert('Terjadi kesalahan, komentar gagal dihapus');
+        location.href='../admin/index.php';
+        </script>";
+    }
+}
