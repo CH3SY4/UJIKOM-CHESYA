@@ -3,16 +3,25 @@ Deskripsi
 Ini adalah proyek ujikom (ujian kompetensi) yang bertujuan untuk membuat sebuah website gallery foto sederhana. Website ini memungkinkan pengguna untuk mengunggah foto, melihat daftar foto yang telah diunggah, serta memberikan komentar pada setiap foto.
 
 •Fitur
+
 1.Unggah Foto: Pengguna dapat mengunggah foto baru ke dalam galeri.
+
 2.Tampilkan Galeri: Daftar foto yang telah diunggah ditampilkan dalam bentuk galeri.
+
 3.Komentar: Pengguna dapat memberikan komentar pada setiap foto.
 
 •Teknologi yang Digunakan
+
 1.Bahasa Pemrograman: PHP,JavaScript
+
 2.Framework: Bootstrap (opsional)
+
 3.Database: MySQL
+
 4.Server-side Scripting: PHP
+
 5.Client-side Scripting: JavaScript
+
 6.Styling: CSS
 
 •Cara Penggunaan
