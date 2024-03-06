@@ -13,7 +13,7 @@ Ini adalah proyek ujikom (ujian kompetensi) yang bertujuan untuk membuat sebuah 
 
 •Teknologi yang Digunakan
 
-1.Bahasa Pemrograman: PHP,JavaScript
+1.Bahasa Pemrograman: PHP
 
 2.Framework: Bootstrap (opsional)
 
